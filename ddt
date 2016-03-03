@@ -33,7 +33,7 @@ declare -A ddt ansi
 ddt=(
        [name]='ddt'
     [version]='0.1.0'
-     [sedERE]=''
+     [sedERE]='-r'
       [debug]=''
       [quiet]=''
      [colour]='auto'
@@ -43,19 +43,17 @@ ddt=(
 
 # Determine `sed` extended regex option
 # (usually -E on Mac/BSD/Solaris, -r on Linux)
-ddt[sedERE]='-r'
 [[ "$( sed --version 2>&1 )" == *'illegal option'* ]] &&
-ddt[sedERE]='-E'
+    ddt[sedERE]='-E'
 
 # Colour variables (might be unset later)
 ansi=(
-     [normal]=$'\033[0m'
-      [reset]=$'\033[0m'
-       [bold]=$'\033[1m'
-        [red]=$'\033[31m'
-      [green]=$'\033[32m'
-    [magenta]=$'\033[35m'
-       [grey]=$'\033[1;30m'
+      [reset]=$(tput sgr0)
+       [bold]=$(tput bold)
+        [red]=$(tput setaf 1)
+      [green]=$(tput setaf 2)
+    [magenta]=$(tput setaf 5)
+       [grey]=$(tput dim)
 )
 
 ##
